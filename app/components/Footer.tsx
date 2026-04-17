@@ -2,18 +2,21 @@
 'use client';
 
 
+import Container from "./Container";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
     <footer className="bg-white border-t border-gray-200">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-10">
-        <div className="flex flex-col items-center text-center">
+        <Container>
+            <div className=" mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-10">
+        <div className="flex items-center text-center justify-between">
           {/* Logo / Brand Name */}
           <div className="mb-4">
             
-              <span className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              <span className="text-xl md:text-3xl font-bold  text-black flex text-center">
+                <img src="/Vector.png" alt="" />
                 Gig Match
               </span>
                {/* Copyright */}
@@ -23,16 +26,29 @@ export default function Footer() {
            
           </div>
 
-          {/* Navigation Links */}
-          <nav className="mb-6" aria-label="Footer navigation">
-            <ul className="flex flex-wrap justify-center gap-x-6 gap-y-3">
-              
-            </ul>
-          </nav>
+                <div className="text-end">
+ <nav className="hidden md:flex items-center gap-8 text-gray-600">
+                        <a href="#">Home</a>
+                        <a href="#price">Pricing</a>
+                        <a href="#Testimonial">Testimonial</a>
+                        <a href="#FAQ">FAQ</a>
+                    </nav>
+
+                    <div className="flex gap-2 text-black">
+                        <img src="/Frame8.png" alt="" />
+                        <img src="/Frame7.png" alt="" />
+                        <img src="/Frame6.png" alt="" />
+                        <img src="/Frame5.png" alt="" />
+                    </div>
+                </div>
+        
+                   
 
          
         </div>
       </div>
+        </Container>
+      
     </footer>
   );
 }

@@ -91,7 +91,7 @@ export default function Carousel() {
   const currentTestimonial = testimonials[currentIndex];
 
   return (
-    <section className="min-h-screen bg-gradient-to-br from-slate-50 to-gray-100 flex items-center justify-center p-4 md:p-8">
+    <section id="Testimonial" className="min-h-screen bg-gradient-to-br from-slate-50 to-gray-100 flex items-center justify-center p-4 md:p-8">
       <Container>
         <div className="w-full mx-auto grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Header Section */}
@@ -109,12 +109,12 @@ export default function Carousel() {
             {/* Main Card */}
             <div className="bg-white rounded-3xl shadow-xl overflow-hidden flex flex-col  md:flex-row">
               {/* Image Section - 400px width */}
-              <div className="w-[200] md:w-[400px] h-[300px]  overflow-hidden ">
+              <div className="   overflow-hidden ">
                 {currentTestimonial.img && (
                   <img
                     src={currentTestimonial.img}
                     alt={currentTestimonial.author}
-                    className="fill"
+                    className="w-full h-full object-cover p-10"
                   />
                 )}
               </div>

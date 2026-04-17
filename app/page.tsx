@@ -4,6 +4,7 @@ import Price from "./components/Price";
 import Carousel from "./components/Carousel";
 import Faq from "./components/Faq";
 import Footer from "./components/Footer";
+import Find from "./components/find";
 
 
 export default function Home() {
@@ -14,7 +15,9 @@ export default function Home() {
       <Price/>
       <Carousel/>
       <Faq/>
+      <Find/>
       <Footer/>
+      
 
     </main>
   );

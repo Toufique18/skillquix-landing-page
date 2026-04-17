@@ -56,7 +56,7 @@ const FAQ: React.FC = () => {
   return (
     <Container>
 
-       <div className="text-center mx-auto px-4 py-12 md:py-16 flex ">
+       <div id='FAQ' className="text-center mx-auto px-4 py-12 md:py-16 flex items-center">
       {/* Header Section */}
       <div className=" text-start mb-12">
         <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3">

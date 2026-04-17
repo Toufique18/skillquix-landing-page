@@ -3,7 +3,7 @@ import Container from "./Container";
 
 export default function Navbar() {
     return (
-        <header className="w-full  py-4">
+        <header className="w-full  py-4 sticky top-0 z-50 bg-white">
             <Container>
                 <div className="flex items-center justify-between border rounded-xl border-gray-200 py-4 px-4">
                     {/* Logo */}
@@ -16,11 +16,11 @@ export default function Navbar() {
                     </div>
 
                     {/* Nav */}
-                    <nav className="hidden md:flex items-center gap-8 text-gray-600">
+                    <nav className="hidden md:flex items-center gap-8 text-gray-600 ">
                         <a href="#">Home</a>
-                        <a href="#">Pricing</a>
-                        <a href="#">Testimonial</a>
-                        <a href="#">FAQ</a>
+                        <a href="#price">Pricing</a>
+                        <a href="#Testimonial">Testimonial</a>
+                        <a href="#FAQ">FAQ</a>
                     </nav>
 
                     {/* Actions */}
