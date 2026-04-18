@@ -54,9 +54,10 @@ const FAQ: React.FC = () => {
   };
 
   return (
-    <Container>
+    <section className='bg-gray-100'>
+         <Container >
 
-       <div id='FAQ' className="text-center mx-auto px-4 py-12 md:py-16 flex items-center">
+       <div id='FAQ' className="text-center bg-gray-100 mx-auto  py-12 md:py-16 flex items-center">
       {/* Header Section */}
       <div className=" text-start mb-12">
         <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3">
@@ -137,6 +138,8 @@ const FAQ: React.FC = () => {
       
     </div>
     </Container>
+    </section>
+   
     
   );
 };

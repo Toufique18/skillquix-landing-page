@@ -25,7 +25,7 @@ export default function Navbar() {
 
                     {/* Actions */}
                     <div className="flex gap-3">
-                        <button className="px-4 py-2 border rounded-lg">
+                        <button className="px-4 py-2 border text-black rounded-lg">
                             Log In
                         </button>
                         <button className="px-4 py-2 bg-[#0F2B5A] text-white rounded-lg">

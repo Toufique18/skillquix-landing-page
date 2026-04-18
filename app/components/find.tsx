@@ -7,10 +7,11 @@ import Container from "./Container";
 
 export default function Find() {
   return (
-    <Container>
-        <section className="relative w-full py-16 md:py-24 lg:py-32 overflow-hidden">
-      {/* Background Image */}
-      <div 
+    
+    <section className=" bg-gray-100">
+      <Container>
+        <div className='relative max-w-7xl bg-gray-100 mx-auto py-16 md:py-24 lg:py-32 overflow-hidden'>
+          <div 
         className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat"
         style={{
           backgroundImage: `url('/robot.png')`, 
@@ -53,8 +54,13 @@ export default function Find() {
 
         
       </div>
-    </section>
+        </div>
+         
     </Container>
+      {/* Background Image */}
+
+     
+    </section>
     
   );
 }

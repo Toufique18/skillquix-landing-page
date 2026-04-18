@@ -27,10 +27,10 @@ export default function Price() {
                 Built for clarity, confidence, and long-term career growth at every stage.
               </p>
 
-              <div className="mt-6 text-3xl font-bold gap-1 flex">0$ <p className="text-sm text-gray-500 pt-3">Per Month</p></div>
+              <div className="mt-6 text-3xl text-black font-bold gap-1 flex">0$ <p className="text-sm text-gray-500 pt-3">Per Month</p></div>
               
 
-              <button className="mt-4 w-full border rounded-md py-2 text-sm hover:bg-[#0F2B5A] hover:text-white">
+              <button className="mt-4 w-full text-black border rounded-md py-2 text-sm hover:bg-[#0F2B5A] hover:text-white">
                 Current Plan
               </button>
 
@@ -60,11 +60,11 @@ export default function Price() {
                 Turn real work into skills, insight, and opportunity—consistently and effortlessly.
               </p>
 
-              <div className="mt-6 text-3xl font-bold gap-1 flex">$19.99 <p className="text-sm text-gray-500 pt-3">Per Month</p>
+              <div className="mt-6 text-3xl font-bold text-black gap-1 flex">$19.99 <p className="text-sm text-gray-500 pt-3">Per Month</p>
               </div>
              
 
-              <button className="mt-4 w-full border rounded-md py-2 text-sm hover:bg-[#0F2B5A] hover:text-white">
+              <button className="mt-4 w-full text-black border rounded-md py-2 text-sm hover:bg-[#0F2B5A] hover:text-white">
                 Upgrade plan
               </button>
 
@@ -88,12 +88,12 @@ export default function Price() {
                 From reflection to review, everything you need to grow your career.
               </p>
 
-              <div className="mt-6 text-3xl font-bold gap-1 flex">$39.99 <p className="text-sm text-gray-500 pt-3">Per Month</p>
+              <div className="mt-6 text-3xl text-black font-bold gap-1 flex">$39.99 <p className="text-sm text-gray-500 pt-3">Per Month</p>
               
               </div>
               
 
-              <button className="mt-4 w-full border rounded-md py-2 text-sm hover:bg-[#0F2B5A] hover:text-white">
+              <button className="mt-4 w-full text-black border rounded-md py-2 text-sm hover:bg-[#0F2B5A] hover:text-white">
                 Upgrade plan
               </button>
 
