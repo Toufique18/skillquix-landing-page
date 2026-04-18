@@ -1,5 +1,6 @@
+/** @type {import('tailwindcss').Config} */
 module.exports = {
-  darkMode: 'class', // This is important - uses class strategy instead of media
+  darkMode: 'class', // This MUST be 'class', not 'media'
   content: [
     './pages/**/*.{js,ts,jsx,tsx,mdx}',
     './components/**/*.{js,ts,jsx,tsx,mdx}',

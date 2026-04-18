@@ -5,6 +5,7 @@ import Carousel from "./components/Carousel";
 import Faq from "./components/Faq";
 import Footer from "./components/Footer";
 import Find from "./components/find";
+import DarkModeTest from "./components/DarkModeTest";
 
 
 export default function Home() {

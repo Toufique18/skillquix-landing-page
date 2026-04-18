@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@config "../tailwind.config.js";
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
@@ -12,11 +14,9 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+.dark {
+  --background: #0a0a0a;
+  --foreground: #ededed;
 }
 
 body {
@@ -47,4 +47,39 @@ body {
   .dark ::-webkit-scrollbar-thumb:hover {
     @apply bg-gray-500;
   }
+}
+
+/* Hide scrollbar completely */
+html {
+  overflow-y: scroll;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
+
+html::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+  width: 0;
+  height: 0;
+}
+
+/* Prevent layout shift on theme toggle */
+html {
+  scrollbar-gutter: stable;
+}
+
+/* Smooth theme transitions */
+* {
+  transition-property: background-color, border-color, color, fill, stroke;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 200ms;
+}
+
+/* Exclude images and SVGs from transitions */
+img, svg, video, iframe, canvas {
+  transition-property: none;
+}
+
+/* Optional: Add custom scroll behavior for a cleaner look */
+body {
+  scroll-behavior: smooth;
 }
