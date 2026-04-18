@@ -2,11 +2,11 @@
 
 import Container from "./Container";
 import { useState, useEffect, useCallback } from 'react';
-import { ChevronLeft, ChevronRight, Quote } from 'lucide-react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 interface Testimonial {
   id: number;
-  img: string;  // Now using string URL instead of StaticImageData
+  img: string;
   content: string;
   author: string;
   title: string;
@@ -16,7 +16,7 @@ interface Testimonial {
 const testimonials: Testimonial[] = [
   {
     id: 1,
-    img: "/alex.png",  // Path relative to public folder
+    img: "/alex.png",
     content:
       "Skillquix helped me finally put words to the work I was doing every day. The reflection and skill breakdown made it much easier to explain my impact - both to myself and to others.",
     author: 'Alex Morgan',
@@ -91,15 +91,15 @@ export default function Carousel() {
   const currentTestimonial = testimonials[currentIndex];
 
   return (
-    <section id="Testimonial" className="py-5 bg-gradient-to-br from-slate-50 to-gray-100 flex items-center justify-center p-2 md:p-8">
+    <section id="Testimonial" className="py-5 bg-gradient-to-br from-slate-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 flex items-center justify-center p-2 md:p-8 transition-colors">
       <Container>
         <div className="w-full mx-auto grid grid-cols-1 lg:grid-cols-3 gap-4">
           {/* Header Section */}
           <div className="text-start mb-10 lg:mb-0">
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4 tracking-tight">
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-4 tracking-tight transition-colors">
               Loved by Job Seekers
             </h1>
-            <p className="text-lg md:text-xl text-gray-600">
+            <p className="text-lg md:text-xl text-gray-600 dark:text-gray-300 transition-colors">
               Join thousands of professionals who found their perfect match.
             </p>
           </div>
@@ -107,85 +107,44 @@ export default function Carousel() {
           {/* Carousel Container */}
           <div className="relative lg:col-span-2">
             {/* Main Card */}
-            <div className="bg-white rounded-3xl shadow-xl overflow-hidden flex flex-col  md:flex-row">
-              {/* Image Section - 400px width */}
-              <div className="   overflow-hidden ">
+            <div className="bg-white dark:bg-gray-800 rounded-3xl shadow-xl overflow-hidden flex flex-col md:flex-row transition-colors">
+              {/* Image Section */}
+              <div className="md:w-1/2 overflow-hidden bg-gray-50 dark:bg-gray-700">
                 {currentTestimonial.img && (
                   <img
                     src={currentTestimonial.img}
                     alt={currentTestimonial.author}
-                    className="w-full h-full object-cover p-10"
+                    className="w-full h-full object-cover p-10 dark:brightness-90 transition-all duration-300"
                   />
                 )}
               </div>
 
               {/* Content Section */}
               <div className="flex-1 p-8 md:p-10 lg:p-12">
-                {/* Quote Icon */}
+                {/* Star Ratings */}
                 <div className="mb-6">
                   <div className="flex items-center gap-1">
-  <svg 
-    className="w-5 h-5 text-yellow-400" 
-    aria-hidden="true" 
-    xmlns="http://www.w3.org/2000/svg" 
-    width="24" 
-    height="24" 
-    fill="currentColor" 
-    viewBox="0 0 24 24"
-  >
-    <path d="M13.849 4.22c-.684-1.626-3.014-1.626-3.698 0L8.397 8.387l-4.552.361c-1.775.14-2.495 2.331-1.142 3.477l3.468 2.937-1.06 4.392c-.413 1.713 1.472 3.067 2.992 2.149L12 19.35l3.897 2.354c1.52.918 3.405-.436 2.992-2.15l-1.06-4.39 3.468-2.938c1.353-1.146.633-3.336-1.142-3.477l-4.552-.36-1.754-4.17Z"/>
-  </svg>
-  <svg 
-    className="w-5 h-5 text-yellow-400" 
-    aria-hidden="true" 
-    xmlns="http://www.w3.org/2000/svg" 
-    width="24" 
-    height="24" 
-    fill="currentColor" 
-    viewBox="0 0 24 24"
-  >
-    <path d="M13.849 4.22c-.684-1.626-3.014-1.626-3.698 0L8.397 8.387l-4.552.361c-1.775.14-2.495 2.331-1.142 3.477l3.468 2.937-1.06 4.392c-.413 1.713 1.472 3.067 2.992 2.149L12 19.35l3.897 2.354c1.52.918 3.405-.436 2.992-2.15l-1.06-4.39 3.468-2.938c1.353-1.146.633-3.336-1.142-3.477l-4.552-.36-1.754-4.17Z"/>
-  </svg>
-  <svg 
-    className="w-5 h-5 text-yellow-400" 
-    aria-hidden="true" 
-    xmlns="http://www.w3.org/2000/svg" 
-    width="24" 
-    height="24" 
-    fill="currentColor" 
-    viewBox="0 0 24 24"
-  >
-    <path d="M13.849 4.22c-.684-1.626-3.014-1.626-3.698 0L8.397 8.387l-4.552.361c-1.775.14-2.495 2.331-1.142 3.477l3.468 2.937-1.06 4.392c-.413 1.713 1.472 3.067 2.992 2.149L12 19.35l3.897 2.354c1.52.918 3.405-.436 2.992-2.15l-1.06-4.39 3.468-2.938c1.353-1.146.633-3.336-1.142-3.477l-4.552-.36-1.754-4.17Z"/>
-  </svg>
-  <svg 
-    className="w-5 h-5 text-yellow-400" 
-    aria-hidden="true" 
-    xmlns="http://www.w3.org/2000/svg" 
-    width="24" 
-    height="24" 
-    fill="currentColor" 
-    viewBox="0 0 24 24"
-  >
-    <path d="M13.849 4.22c-.684-1.626-3.014-1.626-3.698 0L8.397 8.387l-4.552.361c-1.775.14-2.495 2.331-1.142 3.477l3.468 2.937-1.06 4.392c-.413 1.713 1.472 3.067 2.992 2.149L12 19.35l3.897 2.354c1.52.918 3.405-.436 2.992-2.15l-1.06-4.39 3.468-2.938c1.353-1.146.633-3.336-1.142-3.477l-4.552-.36-1.754-4.17Z"/>
-  </svg>
-  <svg 
-    className="w-5 h-5 text-yellow-400" 
-    aria-hidden="true" 
-    xmlns="http://www.w3.org/2000/svg" 
-    width="24" 
-    height="24" 
-    fill="currentColor" 
-    viewBox="0 0 24 24"
-  >
-    <path d="M13.849 4.22c-.684-1.626-3.014-1.626-3.698 0L8.397 8.387l-4.552.361c-1.775.14-2.495 2.331-1.142 3.477l3.468 2.937-1.06 4.392c-.413 1.713 1.472 3.067 2.992 2.149L12 19.35l3.897 2.354c1.52.918 3.405-.436 2.992-2.15l-1.06-4.39 3.468-2.938c1.353-1.146.633-3.336-1.142-3.477l-4.552-.36-1.754-4.17Z"/>
-  </svg>
+                    {[...Array(5)].map((_, i) => (
+                      <svg 
+                        key={i}
+                        className="w-5 h-5 text-yellow-400 dark:text-yellow-500" 
+                        aria-hidden="true" 
+                        xmlns="http://www.w3.org/2000/svg" 
+                        width="24" 
+                        height="24" 
+                        fill="currentColor" 
+                        viewBox="0 0 24 24"
+                      >
+                        <path d="M13.849 4.22c-.684-1.626-3.014-1.626-3.698 0L8.397 8.387l-4.552.361c-1.775.14-2.495 2.331-1.142 3.477l3.468 2.937-1.06 4.392c-.413 1.713 1.472 3.067 2.992 2.149L12 19.35l3.897 2.354c1.52.918 3.405-.436 2.992-2.15l-1.06-4.39 3.468-2.938c1.353-1.146.633-3.336-1.142-3.477l-4.552-.36-1.754-4.17Z"/>
+                      </svg>
+                    ))}
                   </div>
                 </div>
 
-                <div>
-                    <p className="font-semibold text-gray-900 text-lg">
-                      Company: {currentTestimonial.company}
-                    </p>
+                <div className="mb-4">
+                  <p className="font-semibold text-gray-700 dark:text-gray-300 text-lg transition-colors">
+                    Company: <span className="text-gray-900 dark:text-white">{currentTestimonial.company}</span>
+                  </p>
                 </div>
 
                 {/* Testimonial Content with animation */}
@@ -198,16 +157,16 @@ export default function Carousel() {
                       : 'opacity-100 translate-x-0'
                   }`}
                 >
-                  <p className="text-gray-700 text-base md:text-lg lg:text-xl leading-relaxed mb-8">
+                  <p className="text-gray-700 dark:text-gray-300 text-base md:text-lg lg:text-xl leading-relaxed mb-8 transition-colors">
                     &quot;{currentTestimonial.content}&quot;
                   </p>
 
                   {/* Author Info */}
                   <div>
-                    <p className="font-semibold text-gray-900 text-lg">
+                    <p className="font-semibold text-gray-900 dark:text-white text-lg transition-colors">
                       {currentTestimonial.author}
                     </p>
-                    <p className="text-gray-500">
+                    <p className="text-gray-500 dark:text-gray-400 transition-colors">
                       {currentTestimonial.title}
                     </p>
                   </div>
@@ -215,41 +174,25 @@ export default function Carousel() {
               </div>
             </div>
 
-            {/* Navigation Arrows */}
+            {/* Navigation Arrows - Fixed positioning */}
             <button
               onClick={goToPrevious}
               disabled={isAnimating}
-              className="absolute right-280 top-70 -translate-y-1/2 -translate-x-3 md:-translate-x-5 bg-white hover:bg-gray-100 rounded-full p-2 shadow-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="absolute right-280 top-70 -translate-y-1/2 -translate-x-3 md:-translate-x-4 bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full p-2 shadow-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400"
               aria-label="Previous testimonial"
             >
-              <ChevronLeft className="w-5 h-5 md:w-6 md:h-6 text-gray-700" />
+              <ChevronLeft className="w-5 h-5 md:w-6 md:h-6 text-gray-700 dark:text-gray-300" />
             </button>
 
             <button
               onClick={goToNext}
               disabled={isAnimating}
-              className="absolute right-270 top-70 -translate-y-1/2 translate-x-3 md:translate-x-5 bg-white hover:bg-gray-100 rounded-full p-2 shadow-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="absolute right-270 top-70 -translate-y-1/2 translate-x-3 md:translate-x-4 bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full p-2 shadow-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400"
               aria-label="Next testimonial"
             >
-              <ChevronRight className="w-5 h-5 md:w-6 md:h-6 text-gray-700" />
+              <ChevronRight className="w-5 h-5 md:w-6 md:h-6 text-gray-700 dark:text-gray-300" />
             </button>
 
-            {/* Dots Indicator 
-            <div className="flex justify-center gap-2 mt-8">
-              {testimonials.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => goToSlide(index)}
-                  disabled={isAnimating}
-                  className={`transition-all duration-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                    index === currentIndex
-                      ? 'w-8 h-2 bg-blue-600'
-                      : 'w-2 h-2 bg-gray-300 hover:bg-gray-400'
-                  }`}
-                  aria-label={`Go to testimonial ${index + 1}`}
-                />
-              ))}
-            </div>*/}
             
           </div>
         </div>

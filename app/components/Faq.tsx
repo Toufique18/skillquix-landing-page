@@ -1,4 +1,3 @@
-// app/components/FAQ.tsx
 'use client';
 
 import React, { useState } from 'react';
@@ -54,93 +53,87 @@ const FAQ: React.FC = () => {
   };
 
   return (
-    <section className='bg-gray-100'>
-         <Container >
-
-       <div id='FAQ' className="text-center bg-gray-100 mx-auto  py-12 md:py-16 flex items-center">
-      {/* Header Section */}
-      <div className=" text-start mb-12">
-        <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3">
-          Frequently Asked Questions
-        </h1>
-        <p className="text-gray-600 text-lg">
-          Get answers to common questions here
-        </p>
-       
-      </div>
-
-      {/* FAQ Items */}
-      <div className="space-y-4 w-2/3 ">
-        {faqData.map((item) => (
-          <div
-            key={item.id}
-            className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden transition-all duration-200 hover:shadow-md"
-          >
-            <button
-              onClick={() => toggleItem(item.id)}
-              className="w-full px-6 py-4 text-left flex justify-between items-center focus:outline-none focus:ring-2 focus:ring-gray-100 focus:ring-inset"
-              aria-expanded={openItems.has(item.id)}
-              aria-controls={`faq-answer-${item.id}`}
-            >
-              <span className="text-lg font-semibold text-gray-900">
-                {item.question}
-              </span>
-              <span className="ml-4 flex-shrink-0 text-gray-600">
-                {openItems.has(item.id) ? (
-                  <svg
-                    className="w-5 h-5"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M5 15l7-7 7 7"
-                    />
-                  </svg>
-                ) : (
-                  <svg
-                    className="w-5 h-5"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M19 9l-7 7-7-7"
-                    />
-                  </svg>
-                )}
-              </span>
-            </button>
-
-            <div
-              id={`faq-answer-${item.id}`}
-              className={`transition-all duration-300 ease-in-out ${
-                openItems.has(item.id)
-                  ? 'max-h-96 opacity-100'
-                  : 'max-h-0 opacity-0 overflow-hidden'
-              }`}
-              aria-hidden={!openItems.has(item.id)}
-            >
-              <div className="px-6 pb-4 pt-1 text-gray-600 border-t border-gray-100">
-                <p>{item.answer}</p>
-              </div>
-            </div>
+    <section className='bg-gray-100 dark:bg-gray-800'>
+      <Container>
+        <div id='FAQ' className="text-center bg-gray-100 dark:bg-gray-800 mx-auto py-12 md:py-16 flex items-center">
+          {/* Header Section */}
+          <div className="text-start mb-12">
+            <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-3">
+              Frequently Asked Questions
+            </h1>
+            <p className="text-gray-600 dark:text-gray-300 text-lg">
+              Get answers to common questions here
+            </p>
           </div>
-        ))}
-      </div>
 
-      
-    </div>
-    </Container>
+          {/* FAQ Items */}
+          <div className="space-y-4 w-2/3">
+            {faqData.map((item) => (
+              <div
+                key={item.id}
+                className="bg-white dark:bg-gray-900 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden transition-all duration-200 hover:shadow-md"
+              >
+                <button
+                  onClick={() => toggleItem(item.id)}
+                  className="w-full px-6 py-4 text-left flex justify-between items-center focus:outline-none focus:ring-2 focus:ring-gray-100 dark:focus:ring-gray-700 focus:ring-inset"
+                  aria-expanded={openItems.has(item.id)}
+                  aria-controls={`faq-answer-${item.id}`}
+                >
+                  <span className="text-lg font-semibold text-gray-900 dark:text-white">
+                    {item.question}
+                  </span>
+                  <span className="ml-4 flex-shrink-0 text-gray-600 dark:text-gray-400">
+                    {openItems.has(item.id) ? (
+                      <svg
+                        className="w-5 h-5"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M5 15l7-7 7 7"
+                        />
+                      </svg>
+                    ) : (
+                      <svg
+                        className="w-5 h-5"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M19 9l-7 7-7-7"
+                        />
+                      </svg>
+                    )}
+                  </span>
+                </button>
+
+                <div
+                  id={`faq-answer-${item.id}`}
+                  className={`transition-all duration-300 ease-in-out ${
+                    openItems.has(item.id)
+                      ? 'max-h-96 opacity-100'
+                      : 'max-h-0 opacity-0 overflow-hidden'
+                  }`}
+                  aria-hidden={!openItems.has(item.id)}
+                >
+                  <div className="px-6 pb-4 pt-1 text-gray-600 dark:text-gray-400 border-t border-gray-100 dark:border-gray-800">
+                    <p>{item.answer}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </Container>
     </section>
-   
-    
   );
 };
 
