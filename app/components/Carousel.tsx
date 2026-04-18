@@ -95,11 +95,11 @@ export default function Carousel() {
       <Container>
         <div className="w-full mx-auto grid grid-cols-1 lg:grid-cols-3 gap-4">
           {/* Header Section */}
-          <div className="text-start mb-10 lg:mb-0">
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-4 tracking-tight transition-colors">
+          <div className="text-start mb-6 lg:mb-0">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-3 sm:mb-4 tracking-tight transition-colors">
               Loved by Job Seekers
             </h1>
-            <p className="text-lg md:text-xl text-gray-600 dark:text-gray-300 transition-colors">
+            <p className="text-base sm:text-lg md:text-xl text-gray-600 dark:text-gray-300 transition-colors">
               Join thousands of professionals who found their perfect match.
             </p>
           </div>
@@ -107,27 +107,27 @@ export default function Carousel() {
           {/* Carousel Container */}
           <div className="relative lg:col-span-2">
             {/* Main Card */}
-            <div className="bg-white dark:bg-gray-800 rounded-3xl shadow-xl overflow-hidden flex flex-col md:flex-row transition-colors">
+            <div className="bg-white dark:bg-gray-800 rounded-2xl sm:rounded-3xl shadow-xl overflow-hidden flex flex-col md:flex-row transition-colors">
               {/* Image Section */}
               <div className="md:w-1/2 overflow-hidden bg-gray-50 dark:bg-gray-700">
                 {currentTestimonial.img && (
                   <img
                     src={currentTestimonial.img}
                     alt={currentTestimonial.author}
-                    className="w-full h-full object-cover p-10 dark:brightness-90 transition-all duration-300"
+                    className="w-full  sm:h-56 md:h-full object-cover p-6 sm:p-10 dark:brightness-90 transition-all duration-300"
                   />
                 )}
               </div>
 
               {/* Content Section */}
-              <div className="flex-1 p-8 md:p-10 lg:p-12">
+              <div className="flex-1 p-5 sm:p-8 md:p-10 lg:p-12">
                 {/* Star Ratings */}
-                <div className="mb-6">
+                <div className="mb-4 sm:mb-6">
                   <div className="flex items-center gap-1">
                     {[...Array(5)].map((_, i) => (
                       <svg 
                         key={i}
-                        className="w-5 h-5 text-yellow-400 dark:text-yellow-500" 
+                        className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-400 dark:text-yellow-500" 
                         aria-hidden="true" 
                         xmlns="http://www.w3.org/2000/svg" 
                         width="24" 
@@ -141,8 +141,8 @@ export default function Carousel() {
                   </div>
                 </div>
 
-                <div className="mb-4">
-                  <p className="font-semibold text-gray-700 dark:text-gray-300 text-lg transition-colors">
+                <div className="mb-3 sm:mb-4">
+                  <p className="font-semibold text-gray-700 dark:text-gray-300 text-base sm:text-lg transition-colors">
                     Company: <span className="text-gray-900 dark:text-white">{currentTestimonial.company}</span>
                   </p>
                 </div>
@@ -157,16 +157,16 @@ export default function Carousel() {
                       : 'opacity-100 translate-x-0'
                   }`}
                 >
-                  <p className="text-gray-700 dark:text-gray-300 text-base md:text-lg lg:text-xl leading-relaxed mb-8 transition-colors">
+                  <p className="text-gray-700 dark:text-gray-300 text-sm sm:text-base md:text-lg lg:text-xl leading-relaxed mb-6 sm:mb-8 transition-colors">
                     &quot;{currentTestimonial.content}&quot;
                   </p>
 
                   {/* Author Info */}
                   <div>
-                    <p className="font-semibold text-gray-900 dark:text-white text-lg transition-colors">
+                    <p className="font-semibold text-gray-900 dark:text-white text-base sm:text-lg transition-colors">
                       {currentTestimonial.author}
                     </p>
-                    <p className="text-gray-500 dark:text-gray-400 transition-colors">
+                    <p className="text-gray-500 dark:text-gray-400 text-sm sm:text-base transition-colors">
                       {currentTestimonial.title}
                     </p>
                   </div>
@@ -174,26 +174,28 @@ export default function Carousel() {
               </div>
             </div>
 
-            {/* Navigation Arrows - Fixed positioning */}
-            <button
-              onClick={goToPrevious}
-              disabled={isAnimating}
-              className="absolute right-280 top-70 -translate-y-1/2 -translate-x-3 md:-translate-x-4 bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full p-2 shadow-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400"
-              aria-label="Previous testimonial"
-            >
-              <ChevronLeft className="w-5 h-5 md:w-6 md:h-6 text-gray-700 dark:text-gray-300" />
-            </button>
+            {/* Navigation Arrows */}
+            <div className="flex items-center justify-center gap-4 mt-4">
+              <button
+                onClick={goToPrevious}
+                disabled={isAnimating}
+                className="absolute right-280 top-70 -translate-y-1/2 -translate-x-3 md:-translate-x-4 bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full p-2 shadow-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400"
+                aria-label="Previous testimonial"
+              >
+                <ChevronLeft className="w-5 h-5 text-gray-700 dark:text-gray-300" />
+              </button>
 
-            <button
-              onClick={goToNext}
-              disabled={isAnimating}
-              className="absolute right-270 top-70 -translate-y-1/2 translate-x-3 md:translate-x-4 bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full p-2 shadow-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400"
-              aria-label="Next testimonial"
-            >
-              <ChevronRight className="w-5 h-5 md:w-6 md:h-6 text-gray-700 dark:text-gray-300" />
-            </button>
+              
 
-            
+              <button
+                onClick={goToNext}
+                disabled={isAnimating}
+                className="absolute right-270 top-70 -translate-y-1/2 translate-x-3 md:translate-x-4 bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full p-2 shadow-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400"
+                aria-label="Next testimonial"
+              >
+                <ChevronRight className="w-5 h-5 text-gray-700 dark:text-gray-300" />
+              </button>
+            </div>
           </div>
         </div>
       </Container>

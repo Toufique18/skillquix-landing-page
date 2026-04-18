@@ -55,7 +55,7 @@ const FAQ: React.FC = () => {
   return (
     <section className='bg-gray-100 dark:bg-gray-800'>
       <Container>
-        <div id='FAQ' className="text-center bg-gray-100 dark:bg-gray-800 mx-auto py-12 md:py-16 flex items-center">
+        <div id='FAQ' className="text-center bg-gray-100 dark:bg-gray-800 mx-auto py-12 md:py-16 md:flex lg:flex items-center">
           {/* Header Section */}
           <div className="text-start mb-12">
             <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-3">
@@ -67,7 +67,7 @@ const FAQ: React.FC = () => {
           </div>
 
           {/* FAQ Items */}
-          <div className="space-y-4 w-2/3">
+          <div className="space-y-4 w-full md:w-2/3">
             {faqData.map((item) => (
               <div
                 key={item.id}

@@ -4,7 +4,7 @@ export default function Price() {
   return (
     <section id="price" className="w-full bg-gray-100 dark:bg-gray-800 py-20 transition-colors">
       <Container>
-        <div className="mx-auto px-4 md:px-20 text-center">
+        <div className="mx-auto px-0 sm:px-4 md:px-20 text-center">
         
           {/* Heading */}
           <h2 className="text-3xl md:text-4xl font-semibold text-gray-800 dark:text-white transition-colors">
