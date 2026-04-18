@@ -32,7 +32,7 @@ export default function Hero() {
           {/* Left */}
           <div>
             <h1 className="text-5xl font-bold leading-tight text-gray-800 dark:text-white transition-colors">
-              An intelligence layer that reveals the skills behind your experience—and the opportunities they unlock.
+              An intelligence layer that reveals the skills behind your experience and the opportunities they unlock.
             </h1>
 
             <p className="mt-6 text-lg text-gray-600 dark:text-gray-300 transition-colors">
