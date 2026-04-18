@@ -32,7 +32,7 @@ export default function ThemeToggle() {
       title={`Current: ${label}. Click to switch.`}
     >
       <span>{icon}</span>
-      <span className="text-xs hidden sm:inline">{label}</span>
+      {/*<span className="text-xs hidden sm:inline">{label}</span>*/}
     </button>
   );
 }
