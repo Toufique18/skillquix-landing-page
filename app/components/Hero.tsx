@@ -29,7 +29,7 @@ export default function Hero() {
   return (
     <section className="w-full bg-gray-50 py-15">
       <Container>
-        <div className="grid md:grid-cols-2 gap-10 items-center">
+        <div className="grid md:grid-cols-2 gap-10 items-center ">
           
           {/* Left */}
           <div>

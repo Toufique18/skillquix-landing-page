@@ -47,7 +47,7 @@ export default function Price() {
           <div className="relative bg-white rounded-xl border-2 p-6 flex flex-col justify-between hover:border-blue-600 hover:border-2 hover:bg-gradient-to-b from-[#F8FAFC] via-[#EEF2FF] to-[#E0E7FF] transition">
             
             {/* Badge */}
-            <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#0F2B5A] text-white text-xs px-3 py-1 rounded-lg flex gap-1"><img src="/crown-03.png" alt="" />
+            <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#0F2B5A] text-white text-xs px-3 py-1 rounded-lg flex gap-1 items-center"><img src="/crown-03.png" alt="" />
             Most Popular
               
             </div>

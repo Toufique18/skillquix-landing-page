@@ -91,11 +91,11 @@ export default function Carousel() {
   const currentTestimonial = testimonials[currentIndex];
 
   return (
-    <section id="Testimonial" className="min-h-screen bg-gradient-to-br from-slate-50 to-gray-100 flex items-center justify-center p-4 md:p-8">
+    <section id="Testimonial" className="py-5 bg-gradient-to-br from-slate-50 to-gray-100 flex items-center justify-center p-2 md:p-8">
       <Container>
-        <div className="w-full mx-auto grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="w-full mx-auto grid grid-cols-1 lg:grid-cols-3 gap-4">
           {/* Header Section */}
-          <div className="text-start mb-8 lg:mb-0">
+          <div className="text-start mb-10 lg:mb-0">
             <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4 tracking-tight">
               Loved by Job Seekers
             </h1>
@@ -169,7 +169,7 @@ export default function Carousel() {
     <path d="M13.849 4.22c-.684-1.626-3.014-1.626-3.698 0L8.397 8.387l-4.552.361c-1.775.14-2.495 2.331-1.142 3.477l3.468 2.937-1.06 4.392c-.413 1.713 1.472 3.067 2.992 2.149L12 19.35l3.897 2.354c1.52.918 3.405-.436 2.992-2.15l-1.06-4.39 3.468-2.938c1.353-1.146.633-3.336-1.142-3.477l-4.552-.36-1.754-4.17Z"/>
   </svg>
   <svg 
-    className="w-5 h-5 text-gray-300" 
+    className="w-5 h-5 text-yellow-400" 
     aria-hidden="true" 
     xmlns="http://www.w3.org/2000/svg" 
     width="24" 
@@ -219,7 +219,7 @@ export default function Carousel() {
             <button
               onClick={goToPrevious}
               disabled={isAnimating}
-              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-3 md:-translate-x-5 bg-white hover:bg-gray-100 rounded-full p-2 shadow-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="absolute right-280 top-70 -translate-y-1/2 -translate-x-3 md:-translate-x-5 bg-white hover:bg-gray-100 rounded-full p-2 shadow-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-blue-500"
               aria-label="Previous testimonial"
             >
               <ChevronLeft className="w-5 h-5 md:w-6 md:h-6 text-gray-700" />
@@ -228,13 +228,13 @@ export default function Carousel() {
             <button
               onClick={goToNext}
               disabled={isAnimating}
-              className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-3 md:translate-x-5 bg-white hover:bg-gray-100 rounded-full p-2 shadow-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="absolute right-270 top-70 -translate-y-1/2 translate-x-3 md:translate-x-5 bg-white hover:bg-gray-100 rounded-full p-2 shadow-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-blue-500"
               aria-label="Next testimonial"
             >
               <ChevronRight className="w-5 h-5 md:w-6 md:h-6 text-gray-700" />
             </button>
 
-            {/* Dots Indicator */}
+            {/* Dots Indicator 
             <div className="flex justify-center gap-2 mt-8">
               {testimonials.map((_, index) => (
                 <button
@@ -249,7 +249,8 @@ export default function Carousel() {
                   aria-label={`Go to testimonial ${index + 1}`}
                 />
               ))}
-            </div>
+            </div>*/}
+            
           </div>
         </div>
       </Container>
