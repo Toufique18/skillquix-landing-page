@@ -4,7 +4,7 @@ export default function Price() {
   return (
     <section id="price" className="w-full bg-gray-100 dark:bg-gray-800 py-20 transition-colors">
       <Container>
-        <div className="mx-auto px-0 sm:px-4 md:px-20 text-center">
+        <div className="mx-auto px-0 sm:px-4 md:px-8 lg:px-20 text-center">
         
           {/* Heading */}
           <h2 className="text-3xl md:text-4xl font-semibold text-gray-800 dark:text-white transition-colors">
@@ -15,7 +15,7 @@ export default function Price() {
           </p>
 
           {/* Cards */}
-          <div className="mt-12 grid md:grid-cols-3 gap-6 text-left">
+          <div className="mt-12 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-left">
             
             {/* Free Plan */}
             <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-700 p-6 flex flex-col justify-between hover:border-blue-600 dark:hover:border-blue-500 hover:shadow-xl transition-all duration-300">

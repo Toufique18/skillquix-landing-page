@@ -93,7 +93,7 @@ export default function Carousel() {
   return (
     <section id="Testimonial" className="py-5 bg-gradient-to-br from-slate-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 flex items-center justify-center p-2 md:p-8 transition-colors">
       <Container>
-        <div className="w-full mx-auto grid grid-cols-1 lg:grid-cols-3 gap-4">
+        <div className="w-full mx-auto grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-8">
           {/* Header Section */}
           <div className="text-start mb-6 lg:mb-0">
             <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-3 sm:mb-4 tracking-tight transition-colors">
@@ -102,6 +102,26 @@ export default function Carousel() {
             <p className="text-base sm:text-lg md:text-xl text-gray-600 dark:text-gray-300 transition-colors">
               Join thousands of professionals who found their perfect match.
             </p>
+            {/* Navigation Arrows */}
+            <div className="flex items-center gap-4 mt-6">
+              <button
+                onClick={goToPrevious}
+                disabled={isAnimating}
+                className="bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full p-2.5 shadow-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400"
+                aria-label="Previous testimonial"
+              >
+                <ChevronLeft className="w-5 h-5 text-gray-700 dark:text-gray-300" />
+              </button>
+
+              <button
+                onClick={goToNext}
+                disabled={isAnimating}
+                className="bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full p-2.5 shadow-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400"
+                aria-label="Next testimonial"
+              >
+                <ChevronRight className="w-5 h-5 text-gray-700 dark:text-gray-300" />
+              </button>
+            </div>
           </div>
 
           {/* Carousel Container */}
@@ -169,33 +189,27 @@ export default function Carousel() {
                     <p className="text-gray-500 dark:text-gray-400 text-sm sm:text-base transition-colors">
                       {currentTestimonial.title}
                     </p>
+                    {/* Dot indicators */}
+                    <div className="flex items-center gap-2 mt-4">
+                      {testimonials.map((_, index) => (
+                        <button
+                          key={index}
+                          onClick={() => goToSlide(index)}
+                          className={`rounded-full transition-all duration-300 ${
+                            index === currentIndex
+                              ? 'w-8 h-2.5 bg-blue-600 dark:bg-blue-500'
+                              : 'w-2.5 h-2.5 bg-gray-300 dark:bg-gray-600 hover:bg-gray-400 dark:hover:bg-gray-500'
+                          }`}
+                          aria-label={`Go to testimonial ${index + 1}`}
+                        />
+                      ))}
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
 
-            {/* Navigation Arrows */}
-            <div className="flex items-center justify-center gap-4 mt-4">
-              <button
-                onClick={goToPrevious}
-                disabled={isAnimating}
-                className="absolute right-280 top-70 -translate-y-1/2 -translate-x-3 md:-translate-x-4 bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full p-2 shadow-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400"
-                aria-label="Previous testimonial"
-              >
-                <ChevronLeft className="w-5 h-5 text-gray-700 dark:text-gray-300" />
-              </button>
 
-              
-
-              <button
-                onClick={goToNext}
-                disabled={isAnimating}
-                className="absolute right-270 top-70 -translate-y-1/2 translate-x-3 md:translate-x-4 bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full p-2 shadow-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400"
-                aria-label="Next testimonial"
-              >
-                <ChevronRight className="w-5 h-5 text-gray-700 dark:text-gray-300" />
-              </button>
-            </div>
           </div>
         </div>
       </Container>

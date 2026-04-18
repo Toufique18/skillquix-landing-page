@@ -65,7 +65,7 @@ export default function Navbar() {
                     </div>
 
                     {/* Desktop Nav */}
-                    <nav className="hidden md:flex items-center gap-8 text-gray-600 dark:text-gray-300">
+                    <nav className="hidden lg:flex items-center gap-8 text-gray-600 dark:text-gray-300">
                         <a href="#" onClick={(e) => handleNavClick(e, '#')} className="hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">Home</a>
                         <a href="#price" onClick={(e) => handleNavClick(e, '#price')} className="hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">Pricing</a>
                         <a href="#Testimonial" onClick={(e) => handleNavClick(e, '#Testimonial')} className="hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">Testimonial</a>
@@ -73,7 +73,7 @@ export default function Navbar() {
                     </nav>
 
                     {/* Desktop Actions */}
-                    <div className="hidden md:flex gap-3 items-center">
+                    <div className="hidden lg:flex gap-3 items-center">
                         <ThemeToggle />
                         <button className="px-4 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
                             Log In
@@ -84,7 +84,7 @@ export default function Navbar() {
                     </div>
 
                     {/* Mobile: Theme Toggle + Hamburger */}
-                    <div className="flex md:hidden items-center gap-2">
+                    <div className="flex lg:hidden items-center gap-2">
                         <ThemeToggle />
                         <button
                             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -106,7 +106,7 @@ export default function Navbar() {
 
                 {/* Mobile Menu Dropdown */}
                 {mobileMenuOpen && (
-                    <div className="md:hidden mt-2 border rounded-xl border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 p-4 animate-in slide-in-from-top-2">
+                    <div className="lg:hidden mt-2 border rounded-xl border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 p-4 animate-in slide-in-from-top-2">
                         <nav className="flex flex-col gap-3 text-gray-600 dark:text-gray-300 mb-4">
                             <a href="#" onClick={(e) => handleNavClick(e, '#')} className="py-2 px-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">Home</a>
                             <a href="#price" onClick={(e) => handleNavClick(e, '#price')} className="py-2 px-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">Pricing</a>

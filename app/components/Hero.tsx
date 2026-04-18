@@ -25,13 +25,13 @@ export default function Hero() {
   ];
 
   return (
-    <section className="w-full bg-gray-50 dark:bg-gray-900 pt-24 pb-10 sm:pt-28 sm:pb-15 transition-colors">
+    <section className="w-full bg-gray-50 dark:bg-gray-900 pt-24 pb-10 sm:pt-28 md:pt-32 sm:pb-15 transition-colors">
       <Container>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 items-center">
           
           {/* Left */}
           <div>
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight text-gray-800 dark:text-white transition-colors">
+            <h1 className="text-3xl sm:text-4xl md:text-[2.5rem] lg:text-5xl font-bold leading-tight text-gray-800 dark:text-white transition-colors">
               An intelligence layer that reveals the skills behind your experience and the opportunities they unlock.
             </h1>
 
@@ -60,7 +60,7 @@ export default function Hero() {
         </div>
         
         {/* Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 w-full mx-auto py-5 mt-8 sm:mt-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 w-full mx-auto py-5 mt-8 sm:mt-10">
           {card.map((cards) => (
             <div
               key={cards.name}
