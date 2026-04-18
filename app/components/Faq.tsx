@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import Container from './Container';
 
 interface FAQItem {
@@ -38,19 +38,28 @@ const faqData: FAQItem[] = [
 ];
 
 const FAQ: React.FC = () => {
-  const [openItems, setOpenItems] = useState<Set<string>>(new Set());
+  const [openItem, setOpenItem] = useState<string | null>(null);
+  const contentRefs = useRef<Record<string, HTMLDivElement | null>>({});
 
-  const toggleItem = (id: string) => {
-    setOpenItems((prev) => {
-      const newSet = new Set(prev);
-      if (newSet.has(id)) {
-        newSet.delete(id);
-      } else {
-        newSet.add(id);
+  const toggleItem = useCallback((id: string) => {
+    setOpenItem((prev) => (prev === id ? null : id));
+  }, []);
+
+  // Update max-height and opacity dynamically when openItem changes
+  useEffect(() => {
+    faqData.forEach((item) => {
+      const el = contentRefs.current[item.id];
+      if (el) {
+        if (openItem === item.id) {
+          el.style.maxHeight = el.scrollHeight + 16 + 'px';
+          el.style.opacity = '1';
+        } else {
+          el.style.maxHeight = '0px';
+          el.style.opacity = '0';
+        }
       }
-      return newSet;
     });
-  };
+  }, [openItem]);
 
   return (
     <section className='bg-gray-100 dark:bg-gray-800'>
@@ -68,38 +77,25 @@ const FAQ: React.FC = () => {
 
           {/* FAQ Items */}
           <div className="space-y-4 w-full md:w-2/3">
-            {faqData.map((item) => (
-              <div
-                key={item.id}
-                className="bg-white dark:bg-gray-900 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden transition-all duration-200 hover:shadow-md"
-              >
-                <button
-                  onClick={() => toggleItem(item.id)}
-                  className="w-full px-6 py-4 text-left flex justify-between items-center focus:outline-none focus:ring-2 focus:ring-gray-100 dark:focus:ring-gray-700 focus:ring-inset"
-                  aria-expanded={openItems.has(item.id)}
-                  aria-controls={`faq-answer-${item.id}`}
+            {faqData.map((item) => {
+              const isOpen = openItem === item.id;
+              return (
+                <div
+                  key={item.id}
+                  className="bg-white dark:bg-gray-900 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden transition-all duration-200 hover:shadow-md"
                 >
-                  <span className="text-lg font-semibold text-gray-900 dark:text-white">
-                    {item.question}
-                  </span>
-                  <span className="ml-4 flex-shrink-0 text-gray-600 dark:text-gray-400">
-                    {openItems.has(item.id) ? (
+                  <button
+                    onClick={() => toggleItem(item.id)}
+                    className="w-full px-6 py-4 text-left flex justify-between items-center focus:outline-none focus:ring-2 focus:ring-gray-100 dark:focus:ring-gray-700 focus:ring-inset cursor-pointer"
+                    aria-expanded={isOpen}
+                    aria-controls={`faq-answer-${item.id}`}
+                  >
+                    <span className="text-lg font-semibold text-gray-900 dark:text-white">
+                      {item.question}
+                    </span>
+                    <span className="ml-4 flex-shrink-0 text-gray-600 dark:text-gray-400">
                       <svg
-                        className="w-5 h-5"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M5 15l7-7 7 7"
-                        />
-                      </svg>
-                    ) : (
-                      <svg
-                        className="w-5 h-5"
+                        className={`faq-chevron w-5 h-5 ${isOpen ? 'rotate-180' : 'rotate-0'}`}
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -111,25 +107,23 @@ const FAQ: React.FC = () => {
                           d="M19 9l-7 7-7-7"
                         />
                       </svg>
-                    )}
-                  </span>
-                </button>
+                    </span>
+                  </button>
 
-                <div
-                  id={`faq-answer-${item.id}`}
-                  className={`transition-all duration-300 ease-in-out ${
-                    openItems.has(item.id)
-                      ? 'max-h-96 opacity-100'
-                      : 'max-h-0 opacity-0 overflow-hidden'
-                  }`}
-                  aria-hidden={!openItems.has(item.id)}
-                >
-                  <div className="px-6 pb-4 pt-1 text-gray-600 dark:text-gray-400 border-t border-gray-100 dark:border-gray-800">
-                    <p>{item.answer}</p>
+                  <div
+                    ref={(el) => { contentRefs.current[item.id] = el; }}
+                    id={`faq-answer-${item.id}`}
+                    className="faq-panel"
+                    style={{ maxHeight: '0px', opacity: 0 }}
+                    aria-hidden={!isOpen}
+                  >
+                    <div className="px-6 pb-4 pt-1 text-gray-600 dark:text-gray-400 border-t border-gray-100 dark:border-gray-800">
+                      <p>{item.answer}</p>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </Container>
@@ -137,4 +131,4 @@ const FAQ: React.FC = () => {
   );
 };
 
-export default FAQ;
+export default FAQ;

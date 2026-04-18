@@ -25,7 +25,7 @@ export default function Hero() {
   ];
 
   return (
-    <section className="w-full bg-gray-50 dark:bg-gray-900 py-10 sm:py-15 transition-colors">
+    <section className="w-full bg-gray-50 dark:bg-gray-900 pt-24 pb-10 sm:pt-28 sm:pb-15 transition-colors">
       <Container>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 items-center">
           

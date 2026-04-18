@@ -24,7 +24,7 @@ export default function Footer() {
           <div className="text-gray-500 dark:text-gray-400 text-sm mt-4 flex justify-between items-center flex-wrap gap-4 transition-colors">
             <p>© {currentYear} GigMatch. All rights reserved.</p>
 
-            <div className="flex gap-2">
+            <div className="flex  gap-2">
   {/* Facebook */}
   <a 
     href="#" 
