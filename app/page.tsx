@@ -6,7 +6,6 @@ import Faq from "./components/Faq";
 import Footer from "./components/Footer";
 import Find from "./components/find";
 
-
 export default function Home() {
   return (
     <main className="">
@@ -17,8 +16,6 @@ export default function Home() {
       <Faq/>
       <Find/>
       <Footer/>
-      
-
     </main>
   );
 }

@@ -1,7 +1,8 @@
 'use client';
 
 import Container from "./Container";
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
+
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 interface Testimonial {
@@ -47,6 +48,26 @@ export default function Carousel() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
   const [direction, setDirection] = useState<'left' | 'right'>('right');
+  const [isVisible, setIsVisible] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.unobserve(entry.target);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
 
   const goToPrevious = useCallback(() => {
     if (isAnimating) return;
@@ -91,7 +112,12 @@ export default function Carousel() {
   const currentTestimonial = testimonials[currentIndex];
 
   return (
-    <section id="Testimonial" className="py-5 bg-gradient-to-br from-slate-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 flex items-center justify-center p-2 md:p-8 transition-colors">
+    <section 
+      id="Testimonial" 
+      ref={sectionRef}
+      className={`py-5 bg-gradient-to-br from-slate-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 flex items-center justify-center p-2 md:p-8 transition-all duration-1000 ${isVisible ? 'reveal-visible' : 'reveal'}`}
+    >
+
       <Container>
         <div className="w-full mx-auto grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-8">
           {/* Header Section */}

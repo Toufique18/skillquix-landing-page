@@ -45,6 +45,27 @@ const FAQ: React.FC = () => {
     setOpenItem((prev) => (prev === id ? null : id));
   }, []);
 
+  const [isVisible, setIsVisible] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.unobserve(entry.target);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
   // Update max-height and opacity dynamically when openItem changes
   useEffect(() => {
     faqData.forEach((item) => {
@@ -62,21 +83,24 @@ const FAQ: React.FC = () => {
   }, [openItem]);
 
   return (
-    <section className='bg-gray-100 dark:bg-gray-800'>
+    <section 
+      ref={sectionRef}
+      className={`bg-gray-100 dark:bg-gray-800 transition-all duration-1000 ${isVisible ? 'reveal-visible' : 'reveal'}`}
+    >
       <Container>
-        <div id='FAQ' className="text-center bg-gray-100 dark:bg-gray-800 mx-auto py-12 md:py-16 lg:flex items-center">
+        <div id='FAQ' className="text-center bg-gray-100 dark:bg-gray-800 mx-auto py-12 md:py-16 lg:flex items-center gap-12">
           {/* Header Section */}
-          <div className="text-start mb-8 md:mb-12">
+          <div className={`text-start mb-8 md:mb-12 lg:w-1/3 transition-all duration-700 delay-100 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'}`}>
             <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-3">
               Frequently Asked Questions
             </h1>
             <p className="text-gray-600 dark:text-gray-300 text-lg">
-              Get answers to common questions here
+              Everything you need to know about Skillquix and how we help you succeed.
             </p>
           </div>
 
           {/* FAQ Items */}
-          <div className="space-y-4 w-full lg:w-2/3">
+          <div className={`space-y-4 w-full lg:w-2/3 reveal-stagger ${isVisible ? 'reveal-visible' : ''}`}>
             {faqData.map((item) => {
               const isOpen = openItem === item.id;
               return (

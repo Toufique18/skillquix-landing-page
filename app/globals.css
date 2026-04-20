@@ -95,3 +95,36 @@ img, svg:not(.faq-chevron), video, iframe, canvas {
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 400ms;
 }
+
+/* Scroll Reveal Animations */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+  visibility: hidden;
+}
+
+.reveal-visible {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+  visibility: visible !important;
+}
+
+/* Staggered delay for child elements */
+.reveal-stagger > * {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.reveal-visible.reveal-stagger > * {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-visible.reveal-stagger > *:nth-child(1) { transition-delay: 0.1s; }
+.reveal-visible.reveal-stagger > *:nth-child(2) { transition-delay: 0.2s; }
+.reveal-visible.reveal-stagger > *:nth-child(3) { transition-delay: 0.3s; }
+.reveal-visible.reveal-stagger > *:nth-child(4) { transition-delay: 0.4s; }
+.reveal-visible.reveal-stagger > *:nth-child(5) { transition-delay: 0.5s; }
+.reveal-visible.reveal-stagger > *:nth-child(6) { transition-delay: 0.6s; }

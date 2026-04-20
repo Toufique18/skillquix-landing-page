@@ -3,6 +3,8 @@
 import { useState, useCallback } from 'react';
 import Container from "./Container";
 import ThemeToggle from "./ThemeToggle";
+import Link from 'next/link';
+
 
 function easeInOutCubic(t: number): number {
     return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
@@ -75,9 +77,12 @@ export default function Navbar() {
                     {/* Desktop Actions */}
                     <div className="hidden lg:flex gap-3 items-center">
                         <ThemeToggle />
-                        <button className="px-4 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
-                            Log In
-                        </button>
+                        <Link href="/login">
+                            <button className="px-4 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors cursor-pointer">
+                                Log In
+                            </button>
+                        </Link>
+
                         <button className="px-4 py-2 bg-[#0F2B5A] dark:bg-[#1a3d7a] text-white rounded-lg hover:bg-[#1a3d7a] dark:hover:bg-[#2a4d8a] transition-colors">
                             Sign up
                         </button>
@@ -114,9 +119,12 @@ export default function Navbar() {
                             <a href="#FAQ" onClick={(e) => handleNavClick(e, '#FAQ')} className="py-2 px-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">FAQ</a>
                         </nav>
                         <div className="flex gap-3 pt-3 border-t border-gray-200 dark:border-gray-700">
-                            <button className="flex-1 px-4 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors text-sm">
-                                Log In
-                            </button>
+                            <Link href="/login" className="flex-1">
+                                <button className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors text-sm cursor-pointer">
+                                    Log In
+                                </button>
+                            </Link>
+
                             <button className="flex-1 px-4 py-2 bg-[#0F2B5A] dark:bg-[#1a3d7a] text-white rounded-lg hover:bg-[#1a3d7a] dark:hover:bg-[#2a4d8a] transition-colors text-sm">
                                 Sign up
                             </button>
