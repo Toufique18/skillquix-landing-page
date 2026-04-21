@@ -3,8 +3,10 @@ import { useState, useEffect, useRef } from 'react';
 import { Mail, ArrowLeft, ShieldCheck, Lock, Eye, EyeOff, CheckCircle2 } from 'lucide-react';
 import Link from 'next/link';
 import { authApi } from '@/lib/api';
+import { useRouter } from 'next/navigation';
 
 export default function Forgotpass() {
+    const router = useRouter();
     const [step, setStep] = useState<'email' | 'otp' | 'reset'>('email');
     const [timer, setTimer] = useState(30);
     const [otp, setOtp] = useState(['', '', '', '', '', '']);
