@@ -4,9 +4,9 @@ import { Eye, EyeOff, User, Upload, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 
 
-export default function Login() {
+export default function Signup() {
     const [showPassword, setShowPassword] = useState(false);
-    const [isSignUp, setIsSignUp] = useState(false);
+    //const [isSignUp, setIsSignUp] = useState(false);
 
     return (
         <div className={`flex min-h-screen bg-white`}>
@@ -22,63 +22,8 @@ export default function Login() {
 
             {/* Content Section */}
             <div className="flex w-full lg:w-1/2 flex-col justify-center items-center px-4 sm:px-8 lg:px-12 bg-gray-50 dark:bg-gray-900 transition-colors duration-500">
-                {isSignUp ? (
-                    /* Sign Up - Welcome Card */
-                    <div className="w-full max-w-[500px] mx-auto bg-white dark:bg-gray-800 p-8 sm:p-12 rounded-[2.5rem] shadow-[0_20px_50px_rgba(8,_112,_184,_0.07)] dark:shadow-[0_20px_50px_rgba(0,_0,_0,_0.3)] border border-gray-100 dark:border-gray-700">
-                        {/* Logo */}
-                        <div className="mb-10">
-                            <Link href="/" className="inline-block" onClick={() => setIsSignUp(false)}>
-                                <img src="/skill.png" alt="Skillquix" className="w-40 h-auto object-contain" />
-                            </Link>
-                            <p className="mt-3 text-sm text-gray-500 dark:text-gray-400 font-medium">Your Career Skill Intelligence Platform</p>
-                        </div>
+               
 
-                        {/* Welcome Header */}
-                        <div className="mb-10 text-left">
-                            <h2 className="text-4xl font-bold text-gray-900 dark:text-white leading-tight">Welcome to Skillquix!</h2>
-                            <p className="mt-4 text-gray-500 dark:text-gray-400 text-lg">Let's set up your profile so we can find you the perfect job matches.</p>
-                        </div>
-
-                        {/* Setup Steps */}
-                        <div className="space-y-6 mb-10">
-                            <p className="text-sm font-bold text-gray-900 dark:text-white uppercase tracking-wider">Here's what we'll do:</p>
-                            
-                            <div className="flex items-center gap-5">
-                                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-gray-100 dark:border-gray-700 bg-white dark:bg-gray-800 shadow-sm">
-                                    <User size={24} className="text-gray-600 dark:text-gray-300" />
-                                </div>
-                                <span className="text-lg text-gray-700 dark:text-gray-300 font-medium">Set up your basic profile</span>
-                            </div>
-
-                            <div className="flex items-center gap-5">
-                                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-gray-100 dark:border-gray-700 bg-white dark:bg-gray-800 shadow-sm">
-                                    <Upload size={24} className="text-gray-600 dark:text-gray-300" />
-                                </div>
-                                <span className="text-lg text-gray-700 dark:text-gray-300 font-medium">Upload or paste your resume</span>
-                            </div>
-
-                            <div className="flex items-center gap-5">
-                                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-gray-100 dark:border-gray-700 bg-white dark:bg-gray-800 shadow-sm">
-                                    <ArrowRight size={24} className="text-gray-600 dark:text-gray-300" />
-                                </div>
-                                <span className="text-lg text-gray-700 dark:text-gray-300 font-medium">Let AI extract your skills</span>
-                            </div>
-                        </div>
-
-                        {/* Start Button */}
-                        <Link href="/signup">
-                            <button className="w-full rounded-xl bg-[#0F2B5A] py-4.5 font-bold text-white shadow-lg shadow-blue-500/20 hover:bg-[#1c355f] transition-all active:scale-[0.98] text-lg cursor-pointer">
-                                Start Setup
-                            </button>
-                        </Link>
-                        
-
-                        <p className="mt-6 text-center text-sm text-gray-500 dark:text-gray-400 font-medium">
-                            This will only take about 2 minutes
-                        </p>
-                    </div>
-                ) : (
-                    /* Login Form Card */
                     <div className="w-[85%] w-[80%] mx-auto bg-white dark:bg-gray-800 p-8 sm:p-12 rounded-3xl shadow-[0_20px_50px_rgba(8,_112,_184,_0.07)] dark:shadow-[0_20px_50px_rgba(0,_0,_0,_0.3)] border border-gray-100 dark:border-gray-700">
                         {/* Logo */}
                         <div className="mb-10">
@@ -88,10 +33,10 @@ export default function Login() {
                             <p className="mt-3 text-sm text-gray-500 dark:text-gray-400 font-medium">Your Career Skill Intelligence Platform</p>
                         </div>
 
-                        {/* Login Header */}
+                        {/* Signup Header */}
                         <div className="mb-8 text-center">
-                            <h2 className="text-3xl font-bold text-gray-900 dark:text-white">Log in to your account</h2>
-                            <p className="mt-2 text-gray-500 dark:text-gray-400">Welcome back! Please enter your details.</p>
+                            <h2 className="text-3xl font-bold text-gray-900 dark:text-white">Create your account</h2>
+                            <p className="mt-2 text-gray-500 dark:text-gray-400">Start finding your perfect job match today.</p>
                         </div>
 
                         {/* Social Login Buttons */}
@@ -126,7 +71,15 @@ export default function Login() {
                                 <span className="bg-white dark:bg-gray-800 px-4 text-gray-500 dark:text-gray-400 font-medium">Or continue with email</span>
                             </div>
                         </div>
-
+                        {/* Name Input */}
+                        <div className="mb-5">
+                            <label className="mb-2 block text-sm font-semibold text-gray-700 dark:text-gray-300">Full Name</label>
+                            <input
+                                type="text"
+                                placeholder="full name"
+                                className="w-full rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 px-4 py-3 text-gray-900 dark:text-white placeholder-gray-400 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all outline-none"
+                            />
+                        </div>
                         {/* Email Input */}
                         <div className="mb-5">
                             <label className="mb-2 block text-sm font-semibold text-gray-700 dark:text-gray-300">Email Address</label>
@@ -169,30 +122,28 @@ export default function Login() {
                                 <div className="relative flex items-center">
                                     <input type="checkbox" className="peer h-5 w-5 rounded-md border-gray-300 text-blue-600 focus:bg-[#0F2B5A] transition-all cursor-pointer" />
                                 </div>
-                                <span className="text-sm text-gray-600 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-gray-200 transition-colors">Remember me for 30 days</span>
+                                <span className="text-sm text-gray-600 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-gray-200 transition-colors">I agree to the Terms of Service and Privacy Policy</span>
                             </label>
-                            <Link href="/forgot-password" title="Forgot password" className="text-sm font-bold text-red-600 hover:text-blue-700 transition-colors">
-                                Forgot password
-                            </Link>
                         </div>
 
-                        {/* Login Button */}
-                        <button className="w-full rounded-xl bg-[#0F2B5A] py-4 font-bold text-white shadow-lg shadow-blue-500/30 hover:bg-[#183464] hover:shadow-blue-500/40 active:scale-[0.98] transition-all focus:outline-none focus:ring-4 focus:ring-blue-500/20">
-                            Log in
-                        </button>
-
-                        {/* Sign Up Link */}
-                        <p className="mt-10 text-center text-sm text-gray-600 dark:text-gray-400">
-                            Don't have an account?{' '}
-                            <button 
-                                onClick={() => setIsSignUp(true)}
-                                className="font-bold text-blue-600 hover:text-blue-700 transition-colors cursor-pointer focus:outline-none"
-                            >
-                                sign up
+                        {/* Create Account Button */}
+                        <Link href="/profile">
+                            <button className="w-full rounded-xl bg-[#0F2B5A] py-2 font-bold text-white shadow-lg shadow-blue-500/30 hover:bg-[#183464] hover:shadow-blue-500/40 active:scale-[0.98] transition-all focus:outline-none focus:ring-4 focus:ring-blue-500/10 cursor-pointer">
+                                Create Account
                             </button>
+                        </Link>
+
+                        {/* Login Link */}
+                        <p className="mt-6 text-center text-sm text-gray-600 dark:text-gray-400">
+                            Already have an account?{' '}
+                            <Link href="/login">
+                                <button className="font-bold text-blue-600 hover:text-blue-700 transition-colors cursor-pointer focus:outline-none">
+                                    Login In
+                                </button>
+                            </Link>
                         </p>
                     </div>
-                )}
+                
             </div>
         </div>
     );

@@ -83,9 +83,11 @@ export default function Navbar() {
                             </button>
                         </Link>
 
-                        <button className="px-4 py-2 bg-[#0F2B5A] dark:bg-[#1a3d7a] text-white rounded-lg hover:bg-[#1a3d7a] dark:hover:bg-[#2a4d8a] transition-colors">
-                            Sign up
-                        </button>
+                        <Link href="/signup">
+                            <button className="px-4 py-2 bg-[#0F2B5A] dark:bg-[#1a3d7a] text-white rounded-lg hover:bg-[#1a3d7a] dark:hover:bg-[#2a4d8a] transition-colors cursor-pointer">
+                                Sign up
+                            </button>
+                        </Link>
                     </div>
 
                     {/* Mobile: Theme Toggle + Hamburger */}

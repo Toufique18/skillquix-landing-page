@@ -1,0 +1,239 @@
+'use client';
+import { useState, useEffect, useRef } from 'react';
+import { Mail, ArrowLeft, ShieldCheck, Lock, Eye, EyeOff, CheckCircle2 } from 'lucide-react';
+import Link from 'next/link';
+
+export default function Forgotpass() {
+    const [step, setStep] = useState<'email' | 'otp' | 'reset'>('email');
+    const [timer, setTimer] = useState(30);
+    const [otp, setOtp] = useState(['', '', '', '']);
+    const [showNewPassword, setShowNewPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+    const otpInputs = useRef<(HTMLInputElement | null)[]>([]);
+
+    useEffect(() => {
+        let interval: NodeJS.Timeout;
+        if (step === 'otp' && timer > 0) {
+            interval = setInterval(() => {
+                setTimer((prev) => prev - 1);
+            }, 1000);
+        }
+        return () => clearInterval(interval);
+    }, [step, timer]);
+
+    const handleOtpChange = (index: number, value: string) => {
+        if (value.length > 1) value = value[value.length - 1];
+        const newOtp = [...otp];
+        newOtp[index] = value;
+        setOtp(newOtp);
+
+        // Move to next input if value is entered
+        if (value && index < 3) {
+            otpInputs.current[index + 1]?.focus();
+        }
+    };
+
+    const handleKeyDown = (index: number, e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === 'Backspace' && !otp[index] && index > 0) {
+            otpInputs.current[index - 1]?.focus();
+        }
+    };
+
+    const handleResend = () => {
+        if (timer === 0) {
+            setTimer(30);
+            // Mock resend logic
+        }
+    };
+
+    return (
+        <div className="flex min-h-screen bg-white lg:flex">
+            
+            {/* Image Section - Right side */}
+            <div className="hidden lg:flex lg:w-1/2 h-screen overflow-hidden">
+                <img
+                    src="/login.png"
+                    alt="Forgot password illustration"
+                    className="w-full h-full object-cover"
+                />
+            </div>
+
+            {/* Content Section - Left side */}
+            <div className="flex w-full lg:w-1/2 flex-col justify-center items-center px-4 sm:px-8 lg:px-12 bg-gray-50 dark:bg-gray-900 transition-colors duration-500 overflow-y-auto">
+                <div className=" w-[80%] mx-auto bg-white dark:bg-gray-800 p-8 sm:p-12 rounded-3xl shadow-[0_20px_50px_rgba(8,_112,_184,_0.07)] dark:shadow-[0_20px_50px_rgba(0,_0,_0,_0.3)] border border-gray-100 dark:border-gray-700">
+                    
+                    {/* Logo */}
+                    <div className="mb-10 ">
+                        <Link href="/" className="inline-block">
+                            <img src="/skill.png" alt="Skillquix" className="w-40 h-auto object-contain" />
+                        </Link>
+                        <p className="mt-1 text-xs text-gray-500 dark:text-gray-400 font-medium">Your Career Skill Intelligence Platform</p>
+                    </div>
+
+                    {step === 'email' ? (
+                        <>
+                            {/* Header */}
+                            <div className="mb-8 text-center">
+                                <h2 className="text-3xl font-bold text-gray-900 dark:text-white">Forgot Password?</h2>
+                                <p className="mt-2 text-gray-500 dark:text-gray-400">Enter your work email and we’ll help you reset it.</p>
+                            </div>
+
+                            {/* Email Form */}
+                            <div className="space-y-6">
+                                <div>
+                                    <label className="mb-2 block text-sm font-bold text-gray-700 dark:text-gray-300">Email Address</label>
+                                    <div className="relative">
+                                        <div className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">
+                                            <Mail size={20} />
+                                        </div>
+                                        <input
+                                            type="email"
+                                            placeholder="Enter your email"
+                                            className="w-full rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 px-12 py-3.5 text-gray-900 dark:text-white placeholder-gray-400 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all outline-none"
+                                        />
+                                    </div>
+                                </div>
+
+                                <button 
+                                    onClick={() => setStep('otp')}
+                                    className="w-full rounded-xl bg-[#0F2B5A] py-4 font-bold text-white shadow-lg shadow-blue-500/30 hover:bg-[#183464] hover:shadow-blue-500/40 active:scale-[0.98] transition-all focus:outline-none focus:ring-4 focus:ring-blue-500/20 cursor-pointer text-lg"
+                                >
+                                    Send OTP
+                                </button>
+
+                                <div className="text-center">
+                                    <Link href="/login" className="inline-flex items-center gap-2 text-sm font-bold text-gray-500 hover:text-blue-600 transition-colors">
+                                        <ArrowLeft size={16} />
+                                        Back to log in
+                                    </Link>
+                                </div>
+                            </div>
+                        </>
+                    ) : step === 'otp' ? (
+                        <>
+                            {/* Header */}
+                            <div className="mb-8 text-center">
+                                <h2 className="text-3xl font-bold text-gray-900 dark:text-white">Email Verification</h2>
+                                <p className="mt-2 text-gray-500 dark:text-gray-400">We've sent a 4-digit code to your email.</p>
+                            </div>
+
+                            {/* OTP Form */}
+                            <div className="space-y-8">
+                                <div className="flex justify-between gap-4">
+                                    {[0, 1, 2, 3].map((index) => (
+                                        <input
+                                            key={index}
+                                            type="text"
+                                            ref={(el) => (otpInputs.current[index] = el)}
+                                            value={otp[index]}
+                                            onChange={(e) => handleOtpChange(index, e.target.value)}
+                                            onKeyDown={(e) => handleKeyDown(index, e)}
+                                            className="w-full h-16 text-center text-2xl font-bold rounded-2xl border-2 border-gray-100 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all outline-none"
+                                        />
+                                    ))}
+                                </div>
+
+                                <div className="text-center">
+                                    <p className="text-sm text-gray-500 dark:text-gray-400">
+                                        {timer > 0 ? (
+                                            <>Resend code in <span className="font-bold text-[#0F2B5A] dark:text-blue-400">{timer}s</span></>
+                                        ) : (
+                                            <button 
+                                                onClick={handleResend}
+                                                className="font-bold text-blue-600 hover:text-blue-700 transition-colors cursor-pointer"
+                                            >
+                                                Resend a new code
+                                            </button>
+                                        )}
+                                    </p>
+                                </div>
+
+                                <button 
+                                    onClick={() => setStep('reset')}
+                                    className="w-full rounded-xl bg-[#0F2B5A] py-4 font-bold text-white shadow-lg shadow-blue-500/30 hover:bg-[#183464] hover:shadow-blue-500/40 active:scale-[0.98] transition-all focus:outline-none focus:ring-4 focus:ring-blue-500/20 cursor-pointer text-lg"
+                                >
+                                    Verify email
+                                </button>
+
+                                <div className="text-center">
+                                    <button 
+                                        onClick={() => setStep('email')}
+                                        className="inline-flex items-center gap-2 text-sm font-bold text-gray-500 hover:text-blue-600 transition-colors cursor-pointer"
+                                    >
+                                        <ArrowLeft size={16} />
+                                        Back to change email
+                                    </button>
+                                </div>
+                            </div>
+                        </>
+                    ) : (
+                        <>
+                            {/* Header */}
+                            <div className="mb-8 text-center">
+                                
+                                <h2 className="text-3xl font-bold text-gray-900 dark:text-white">Set Password</h2>
+                                <p className="mt-2 text-gray-500 dark:text-gray-400">Your new password must be different from previous ones.</p>
+                            </div>
+
+                            {/* Reset Password Form */}
+                            <div className="space-y-6">
+                                <div>
+                                    <label className="mb-2 block text-sm font-bold text-gray-700 dark:text-gray-300">New Password</label>
+                                    <div className="relative">
+                                        <div className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">
+                                            <Lock size={20} />
+                                        </div>
+                                        <input
+                                            type={showNewPassword ? "text" : "password"}
+                                            placeholder="••••••••"
+                                            className="w-full rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 px-12 py-3.5 text-gray-900 dark:text-white placeholder-gray-400 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all outline-none"
+                                        />
+                                        <button
+                                            type="button"
+                                            onClick={() => setShowNewPassword(!showNewPassword)}
+                                            className="absolute right-3 top-1/2 -translate-y-1/2 p-2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-colors"
+                                        >
+                                            {showNewPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label className="mb-2 block text-sm font-bold text-gray-700 dark:text-gray-300">Confirm Password</label>
+                                    <div className="relative">
+                                        <div className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">
+                                            <Lock size={20} />
+                                        </div>
+                                        <input
+                                            type={showConfirmPassword ? "text" : "password"}
+                                            placeholder="••••••••"
+                                            className="w-full rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 px-12 py-3.5 text-gray-900 dark:text-white placeholder-gray-400 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all outline-none"
+                                        />
+                                        <button
+                                            type="button"
+                                            onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                                            className="absolute right-3 top-1/2 -translate-y-1/2 p-2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-colors"
+                                        >
+                                            {showConfirmPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <button className="w-full rounded-xl bg-[#0F2B5A] py-4 font-bold text-white shadow-lg shadow-blue-500/30 hover:bg-[#183464] hover:shadow-blue-500/40 active:scale-[0.98] transition-all focus:outline-none focus:ring-4 focus:ring-blue-500/20 cursor-pointer text-lg">
+                                    Save changes
+                                </button>
+
+                                <div className="text-center">
+                                    <Link href="/login" className="inline-flex items-center gap-2 text-sm font-bold text-gray-500 hover:text-blue-600 transition-colors">
+                                        <ArrowLeft size={16} />
+                                        Back to log in
+                                    </Link>
+                                </div>
+                            </div>
+                        </>
+                    )}
+                </div>
+            </div>
+        </div>
+    );
+}
