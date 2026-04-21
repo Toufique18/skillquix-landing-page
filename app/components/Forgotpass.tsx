@@ -124,7 +124,7 @@ export default function Forgotpass() {
                                         <input
                                             key={index}
                                             type="text"
-                                            ref={(el) => (otpInputs.current[index] = el)}
+                                            ref={(el) => { otpInputs.current[index] = el; }}
                                             value={otp[index]}
                                             onChange={(e) => handleOtpChange(index, e.target.value)}
                                             onKeyDown={(e) => handleKeyDown(index, e)}
