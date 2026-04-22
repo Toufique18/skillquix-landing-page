@@ -3,8 +3,8 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 /**
  * Counter Slice Example
  * 
- * Slices are where you define your state, reducers, and actions.
- * Redux Toolkit uses Immer under the hood, so you can write "mutating"
+ * Slices are where define state, reducers, and actions.
+ * Redux Toolkit uses Immer under the hood, write "mutating"
  * logic that is actually transformed into safe immutable updates.
  */
 

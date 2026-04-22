@@ -2,7 +2,8 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 const API_BASE_URL = 'https://dev.api.skillquix.tech/api/v1';
 
-/**
+/*
+
  * Auth API Service
  * 
  * This service handles all authentication-related API calls using RTK Query.

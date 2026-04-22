@@ -7,7 +7,7 @@ import { authApi } from './services/authApi';
 /**
  * Redux Store Configuration
  * 
- * In Next.js App Router, we should create a new store instance for each request
+ * In Next.js App Router, create a new store instance for each request
  * on the server, and a singleton instance on the client.
  */
 
