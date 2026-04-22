@@ -3,13 +3,20 @@ import { useState } from 'react';
 import { Eye, EyeOff, User, Upload, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 import { GoogleLogin } from '@react-oauth/google';
-import { authApi } from '@/lib/api';
 import { useRouter } from 'next/navigation';
 import { jwtDecode } from 'jwt-decode';
+import { useAppDispatch } from '@/lib/redux/hooks';
+import { setCredentials } from '@/lib/redux/features/auth/authSlice';
+import { useGoogleLoginMutation } from '@/lib/redux/services/authApi';
 
 
 export default function Signup() {
     const router = useRouter();
+    const dispatch = useAppDispatch();
+    
+    // RTK Query Mutation
+    const [googleLoginMutation] = useGoogleLoginMutation();
+
     const [showPassword, setShowPassword] = useState(false);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -30,13 +37,21 @@ export default function Signup() {
                 const decoded: any = jwtDecode(credential);
                 console.log('User Name:', decoded.name);
 
-                const response = await authApi.googleLogin(credential);
-                console.log('Backend Response:', response.data);
+                const response: any = await googleLoginMutation(credential).unwrap();
+                console.log('Backend Response:', response);
+                
+                // Persist data in Redux
+                const userName = decoded.name || 'User';
+                const userEmail = decoded.email || '';
+                dispatch(setCredentials({ name: userName, email: userEmail }));
+                
                 // Handle successful signup
-                router.push('/profile');
+                router.push('/dashboard');
             }
-        } catch (error) {
-            console.error('Google Signup Backend Error:', error);
+        } catch (error: any) {
+            console.error('Google Signup Error:', error);
+            const errorMessage = error.data?.message || error.message || 'Google signup failed';
+            console.error('Error Message:', errorMessage);
         }
     };
 
@@ -77,7 +92,6 @@ export default function Signup() {
                                 <GoogleLogin
                                     onSuccess={handleGoogleSuccess}
                                     onError={() => console.log('Signup Failed')}
-                                    useOneTap
                                     theme="outline"
                                     size="large"
                                     width="100%"

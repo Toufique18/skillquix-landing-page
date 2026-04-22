@@ -3,26 +3,24 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { User, Mail, Lock, LogOut, LayoutDashboard } from 'lucide-react';
 import Link from 'next/link';
+import { useAppDispatch, useAppSelector } from '@/lib/redux/hooks';
+import { logout } from '@/lib/redux/features/auth/authSlice';
 
 export default function Dashboard() {
     const router = useRouter();
-    const [userData, setUserData] = useState<any>(null);
-
-    useEffect(() => {
-        // Retrieve user data from localStorage
-        const email = localStorage.getItem('user_email') || 'N/A';
-        const name = localStorage.getItem('user_name') || 'N/A';
-        const password = localStorage.getItem('user_password') || '••••••••';
-        
-        setUserData({ name, email, password });
-    }, []);
+    const dispatch = useAppDispatch();
+    const user = useAppSelector((state) => state.auth.user);
 
     const handleLogout = () => {
-        localStorage.clear();
+        dispatch(logout());
         router.push('/login');
     };
 
-    if (!userData) return null;
+    if (!user.isAuthenticated) {
+        // You might want to redirect to login if not authenticated
+        // router.push('/login');
+        // return null;
+    }
 
     return (
         <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-500">
@@ -57,7 +55,7 @@ export default function Dashboard() {
                             <User size={24} />
                         </div>
                         <h3 className="text-sm font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-1">Full Name</h3>
-                        <p className="text-xl font-bold text-gray-900 dark:text-white truncate">{userData.name}</p>
+                        <p className="text-xl font-bold text-gray-900 dark:text-white truncate">{user.name || 'N/A'}</p>
                     </div>
 
                     {/* Email Card */}
@@ -66,7 +64,7 @@ export default function Dashboard() {
                             <Mail size={24} />
                         </div>
                         <h3 className="text-sm font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-1">Email Address</h3>
-                        <p className="text-xl font-bold text-gray-900 dark:text-white truncate">{userData.email}</p>
+                        <p className="text-xl font-bold text-gray-900 dark:text-white truncate">{user.email || 'N/A'}</p>
                     </div>
 
                     {/* Password Card */}
@@ -75,7 +73,7 @@ export default function Dashboard() {
                             <Lock size={24} />
                         </div>
                         <h3 className="text-sm font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-1">Password</h3>
-                        <p className="text-xl font-bold text-gray-900 dark:text-white truncate">{userData.password}</p>
+                        <p className="text-xl font-bold text-gray-900 dark:text-white truncate">••••••••</p>
                     </div>
                 </div>
 

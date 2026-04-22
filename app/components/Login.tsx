@@ -2,14 +2,22 @@
 import { useState } from 'react';
 import { Eye, EyeOff, User, Upload, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
-import { GoogleLogin } from '@react-oauth/google';
-import { authApi } from '@/lib/api';
 import { useRouter } from 'next/navigation';
 import { jwtDecode } from 'jwt-decode';
+import { useAppDispatch } from '@/lib/redux/hooks';
+import { setCredentials } from '@/lib/redux/features/auth/authSlice';
+import { useLoginMutation, useGoogleLoginMutation } from '@/lib/redux/services/authApi';
+import { GoogleLogin } from '@react-oauth/google';
 
 
 export default function Login() {
     const router = useRouter();
+    const dispatch = useAppDispatch();
+    
+    // RTK Query Mutations
+    const [loginMutation] = useLoginMutation();
+    const [googleLoginMutation] = useGoogleLoginMutation();
+
     const [showPassword, setShowPassword] = useState(false);
     const [isSignUp, setIsSignUp] = useState(false);
     const [email, setEmail] = useState('');
@@ -21,16 +29,12 @@ export default function Login() {
         e.preventDefault();
         try {
             setIsSubmitting(true);
-            const response = await authApi.login({ email, password });
+            const response: any = await loginMutation({ email, password }).unwrap();
             console.log('--- Login Success ---');
-            const userName = response.data.user?.fullName || response.data.name || 'User';
-            console.log('User Name:', userName);
-            console.log('User Email:', email);
+            const userName = response.data?.user?.fullName || response.data?.name || response.user?.fullName || 'User';
             
-            // Persist data for the dashboard
-            localStorage.setItem('user_name', userName);
-            localStorage.setItem('user_email', email);
-            localStorage.setItem('user_password', password);
+            // Persist data in Redux
+            dispatch(setCredentials({ name: userName, email: email }));
             
             setShowSuccessModal(true);
             
@@ -38,8 +42,9 @@ export default function Login() {
                 router.push('/dashboard');
             }, 3000);
         } catch (error: any) {
-            console.error('Login Error Details:', error.response?.data);
-            console.error('Login Error Message:', error.message);
+            console.error('Login Error:', error);
+            const errorMessage = error.data?.message || error.message || 'Login failed';
+            console.error('Error Message:', errorMessage);
         } finally {
             setIsSubmitting(false);
         }
@@ -53,13 +58,21 @@ export default function Login() {
                 const decoded: any = jwtDecode(credential);
                 console.log('User Name:', decoded.name);
                 
-                const response = await authApi.googleLogin(credential);
-                console.log('Backend Response:', response.data);
+                const response: any = await googleLoginMutation(credential).unwrap();
+                console.log('Backend Response:', response);
+                
+                // Persist data in Redux
+                const userName = decoded.name || 'User';
+                const userEmail = decoded.email || '';
+                dispatch(setCredentials({ name: userName, email: userEmail }));
+                
                 // Handle successful login
-                router.push('/profile');
+                router.push('/dashboard');
             }
-        } catch (error) {
-            console.error('Google Login Backend Error:', error);
+        } catch (error: any) {
+            console.error('Google Login Error:', error);
+            const errorMessage = error.data?.message || error.message || 'Google login failed';
+            console.error('Error Message:', errorMessage);
         }
     };
 
@@ -155,7 +168,6 @@ export default function Login() {
                                 <GoogleLogin
                                     onSuccess={handleGoogleSuccess}
                                     onError={() => console.log('Login Failed')}
-                                    useOneTap
                                     theme="outline"
                                     size="large"
                                     width="100%"

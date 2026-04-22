@@ -2,11 +2,23 @@
 import { useState, useEffect, useRef } from 'react';
 import { Mail, ArrowLeft, ShieldCheck, Lock, Eye, EyeOff, CheckCircle2 } from 'lucide-react';
 import Link from 'next/link';
-import { authApi } from '@/lib/api';
 import { useRouter } from 'next/navigation';
+import { 
+    useForgotPasswordMutation, 
+    useVerifyOtpMutation, 
+    useResendOtpMutation, 
+    useResetPasswordMutation 
+} from '@/lib/redux/services/authApi';
 
 export default function Forgotpass() {
     const router = useRouter();
+    
+    // RTK Query Mutations
+    const [forgotPassword] = useForgotPasswordMutation();
+    const [verifyOtp] = useVerifyOtpMutation();
+    const [resendOtp] = useResendOtpMutation();
+    const [resetPassword] = useResetPasswordMutation();
+
     const [step, setStep] = useState<'email' | 'otp' | 'reset'>('email');
     const [timer, setTimer] = useState(30);
     const [otp, setOtp] = useState(['', '', '', '', '', '']);
@@ -51,13 +63,15 @@ export default function Forgotpass() {
         if (timer === 0) {
             try {
                 setIsSubmitting(true);
-                const response = await authApi.resendOtp(email);
+                const response: any = await resendOtp(email).unwrap();
                 console.log('--- Resend OTP Success ---');
-                console.log('Response:', response.data);
+                console.log('Response:', response);
                 setTimer(30);
                 setOtp(['', '', '', '', '', '']); // Clear previous OTP
             } catch (error: any) {
-                console.error('Resend OTP Error:', error.response?.data || error.message);
+                console.error('Resend OTP Error:', error);
+                const errorMessage = error.data?.message || error.message || 'Resend failed';
+                console.error('Error Message:', errorMessage);
             } finally {
                 setIsSubmitting(false);
             }
@@ -68,13 +82,15 @@ export default function Forgotpass() {
         if (!email) return;
         try {
             setIsSubmitting(true);
-            const response = await authApi.forgotPassword(email);
+            const response: any = await forgotPassword(email).unwrap();
             console.log('--- Forgot Password Success ---');
-            console.log('Response:', response.data);
+            console.log('Response:', response);
             setStep('otp');
             setTimer(30);
         } catch (error: any) {
-            console.error('Forgot Password Error:', error.response?.data || error.message);
+            console.error('Forgot Password Error:', error);
+            const errorMessage = error.data?.message || error.message || 'Request failed';
+            console.error('Error Message:', errorMessage);
         } finally {
             setIsSubmitting(false);
         }
@@ -86,22 +102,24 @@ export default function Forgotpass() {
         
         try {
             setIsSubmitting(true);
-            const response = await authApi.verifyOtp(email, parseInt(otpValue));
+            const response: any = await verifyOtp({ email, otp: parseInt(otpValue) }).unwrap();
             console.log('--- OTP Verification Success ---');
-            console.log('Response:', response.data);
+            console.log('Response:', response);
             
-            // Extract token from response (adjust based on your API structure)
-            const token = response.data.token || 
-                          response.data.data?.token || 
-                          response.data.accessToken || 
-                          response.data.data?.accessToken;
+            // Extract token from response
+            const token = response.token || 
+                          response.data?.token || 
+                          response.accessToken || 
+                          response.data?.accessToken;
             
             console.log('Extracted Token:', token);
             if (token) setResetToken(token);
             
             setStep('reset');
         } catch (error: any) {
-            console.error('OTP Verification Error:', error.response?.data || error.message);
+            console.error('OTP Verification Error:', error);
+            const errorMessage = error.data?.message || error.message || 'Verification failed';
+            console.error('Error Message:', errorMessage);
         } finally {
             setIsSubmitting(false);
         }
@@ -125,17 +143,19 @@ export default function Forgotpass() {
 
         try {
             setIsSubmitting(true);
-            const response = await authApi.resetPassword(
-                { newPassword, confirmPassword },
-                resetToken
-            );
+            const response: any = await resetPassword({ 
+                data: { newPassword, confirmPassword }, 
+                token: resetToken 
+            }).unwrap();
+            
             console.log('--- Reset Password Success ---');
-            console.log('Response:', response.data);
+            console.log('Response:', response);
             alert('Password reset successful! Please log in with your new password.');
             router.push('/login');
         } catch (error: any) {
-            console.error('Reset Password Error:', error.response?.data || error.message);
-            alert(error.response?.data?.message || 'Failed to reset password');
+            console.error('Reset Password Error:', error);
+            const errorMessage = error.data?.message || error.message || 'Reset failed';
+            alert(errorMessage);
         } finally {
             setIsSubmitting(false);
         }

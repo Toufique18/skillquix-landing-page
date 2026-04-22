@@ -15,6 +15,19 @@ api.interceptors.request.use(config => {
   return config;
 });
 
+// Add response interceptor for debugging
+api.interceptors.response.use(
+  response => response,
+  error => {
+    console.error('API Error:', {
+      url: error.config?.url,
+      status: error.response?.status,
+      data: error.response?.data
+    });
+    return Promise.reject(error);
+  }
+);
+
 export const authApi = {
   googleLogin: (token: string) => api.post('/auth/google-login', { token }),
   register: (formData: FormData) => api.post('/user/register', formData, {

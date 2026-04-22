@@ -2,11 +2,12 @@
 import { useState, useRef } from 'react';
 import { User, MapPin, ArrowLeft, Camera, ChevronDown, History, FileText, Upload } from 'lucide-react';
 import Link from 'next/link';
-import { authApi } from '@/lib/api';
 import { useRouter } from 'next/navigation';
+import { useRegisterMutation } from '@/lib/redux/services/authApi';
 
 export default function Profile() {
     const router = useRouter();
+    const [registerMutation] = useRegisterMutation();
     const [isReview, setIsReview] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [showSuccessModal, setShowSuccessModal] = useState(false);
@@ -84,9 +85,10 @@ export default function Profile() {
             }
             submitData.append('bodyData', JSON.stringify(bodyData));
 
-            const response = await authApi.register(submitData);
+            const response: any = await registerMutation(submitData).unwrap();
             
             console.log('--- Registration Success ---');
+            console.log('Response:', response);
             console.log('User Name:', bodyData.fullName);
             console.log('User Email:', bodyData.email);
             console.log('User Password:', bodyData.password);
@@ -108,8 +110,10 @@ export default function Profile() {
             }, 3000);
 
         } catch (error: any) {
-            console.error('Registration Error Details:', error.response?.data);
-            console.error('Registration Error Message:', error.message);
+            console.error('Registration Error:', error);
+            // RTK Query errors are usually in error.data or error.error
+            const errorMessage = error.data?.message || error.message || 'Registration failed';
+            console.error('Error Message:', errorMessage);
         } finally {
             setIsSubmitting(false);
         }

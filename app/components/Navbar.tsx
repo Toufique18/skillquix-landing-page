@@ -4,6 +4,7 @@ import { useState, useCallback } from 'react';
 import Container from "./Container";
 import ThemeToggle from "./ThemeToggle";
 import Link from 'next/link';
+import { useAppSelector } from '@/lib/redux/hooks';
 
 
 function easeInOutCubic(t: number): number {
@@ -46,6 +47,7 @@ function smoothScrollTo(targetId: string, duration = 900) {
 
 export default function Navbar() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+    const isAuthenticated = useAppSelector((state) => state.auth.user.isAuthenticated);
 
     const handleNavClick = useCallback((e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
         e.preventDefault();
@@ -77,17 +79,27 @@ export default function Navbar() {
                     {/* Desktop Actions */}
                     <div className="hidden lg:flex gap-3 items-center">
                         <ThemeToggle />
-                        <Link href="/login">
-                            <button className="px-4 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors cursor-pointer">
-                                Log In
-                            </button>
-                        </Link>
+                        {isAuthenticated ? (
+                            <Link href="/dashboard">
+                                <button className="px-4 py-2 bg-[#0F2B5A] dark:bg-[#1a3d7a] text-white rounded-lg hover:bg-[#1a3d7a] dark:hover:bg-[#2a4d8a] transition-colors cursor-pointer">
+                                    Dashboard
+                                </button>
+                            </Link>
+                        ) : (
+                            <>
+                                <Link href="/login">
+                                    <button className="px-4 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors cursor-pointer">
+                                        Log In
+                                    </button>
+                                </Link>
 
-                        <Link href="/signup">
-                            <button className="px-4 py-2 bg-[#0F2B5A] dark:bg-[#1a3d7a] text-white rounded-lg hover:bg-[#1a3d7a] dark:hover:bg-[#2a4d8a] transition-colors cursor-pointer">
-                                Sign up
-                            </button>
-                        </Link>
+                                <Link href="/signup">
+                                    <button className="px-4 py-2 bg-[#0F2B5A] dark:bg-[#1a3d7a] text-white rounded-lg hover:bg-[#1a3d7a] dark:hover:bg-[#2a4d8a] transition-colors cursor-pointer">
+                                        Sign up
+                                    </button>
+                                </Link>
+                            </>
+                        )}
                     </div>
 
                     {/* Mobile: Theme Toggle + Hamburger */}
@@ -121,15 +133,27 @@ export default function Navbar() {
                             <a href="#FAQ" onClick={(e) => handleNavClick(e, '#FAQ')} className="py-2 px-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">FAQ</a>
                         </nav>
                         <div className="flex gap-3 pt-3 border-t border-gray-200 dark:border-gray-700">
-                            <Link href="/login" className="flex-1">
-                                <button className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors text-sm cursor-pointer">
-                                    Log In
-                                </button>
-                            </Link>
+                            {isAuthenticated ? (
+                                <Link href="/dashboard" className="flex-1">
+                                    <button className="w-full px-4 py-2 bg-[#0F2B5A] dark:bg-[#1a3d7a] text-white rounded-lg hover:bg-[#1a3d7a] dark:hover:bg-[#2a4d8a] transition-colors text-sm cursor-pointer">
+                                        Dashboard
+                                    </button>
+                                </Link>
+                            ) : (
+                                <>
+                                    <Link href="/login" className="flex-1">
+                                        <button className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors text-sm cursor-pointer">
+                                            Log In
+                                        </button>
+                                    </Link>
 
-                            <button className="flex-1 px-4 py-2 bg-[#0F2B5A] dark:bg-[#1a3d7a] text-white rounded-lg hover:bg-[#1a3d7a] dark:hover:bg-[#2a4d8a] transition-colors text-sm">
-                                Sign up
-                            </button>
+                                    <Link href="/signup" className="flex-1">
+                                        <button className="w-full px-4 py-2 bg-[#0F2B5A] dark:bg-[#1a3d7a] text-white rounded-lg hover:bg-[#1a3d7a] dark:hover:bg-[#2a4d8a] transition-colors text-sm cursor-pointer">
+                                            Sign up
+                                        </button>
+                                    </Link>
+                                </>
+                            )}
                         </div>
                     </div>
                 )}
