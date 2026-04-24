@@ -30,12 +30,15 @@ export const authApi = createApi({
 
     // Google Login
     googleLogin: builder.mutation({
-      query: (token: string) => ({
-        url: '/auth/google-login',
-        method: 'POST',
-        body: { token },
-      }),
-    }),
+  query: (token: string) => ({
+    url: '/auth/google-login',
+    method: 'POST',
+    body: { token },
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  }),
+}),
 
     // User Registration
     register: builder.mutation({

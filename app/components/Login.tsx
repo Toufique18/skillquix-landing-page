@@ -8,11 +8,12 @@ import { useAppDispatch } from '@/lib/redux/hooks';
 import { setCredentials } from '@/lib/redux/features/auth/authSlice';
 import { useLoginMutation, useGoogleLoginMutation } from '@/lib/redux/services/authApi';
 import { GoogleLogin } from '@react-oauth/google';
-
+import { CLIENT_ID } from '../google-provider';
 
 export default function Login() {
     const router = useRouter();
     const dispatch = useAppDispatch();
+    
     
     // RTK Query Mutations
     const [loginMutation] = useLoginMutation();
@@ -50,32 +51,27 @@ export default function Login() {
         }
     };
 
-    const handleGoogleSuccess = async (credentialResponse: any) => {
-        try {
-            console.log('Google Login Success:', credentialResponse);
-            const { credential } = credentialResponse;
-            if (credential) {
-                const decoded: any = jwtDecode(credential);
-                console.log('User Name:', decoded.name);
-                
-                const response: any = await googleLoginMutation(credential).unwrap();
-                console.log('Backend Response:', response);
-                
-                // Persist data in Redux
-                const userName = decoded.name || 'User';
-                const userEmail = decoded.email || '';
-                dispatch(setCredentials({ name: userName, email: userEmail }));
-                
-                // Handle successful login
-                router.push('/dashboard');
-            }
-        } catch (error: any) {
-            console.error('Google Login Error:', error);
-            const errorMessage = error.data?.message || error.message || 'Google login failed';
-            console.error('Error Message:', errorMessage);
-        }
-    };
 
+   // Update your handleGoogleSuccess function
+const handleGoogleSuccess = async (credentialResponse: any) => {
+  try {
+    const token = credentialResponse.credential;
+
+    if (!token) throw new Error('No credential received');
+
+    const response: any = await googleLoginMutation(token).unwrap();
+
+    dispatch(setCredentials({
+      name: response.user.name,
+      email: response.user.email
+    }));
+
+    router.push('/dashboard');
+
+  } catch (error: any) {
+    console.error('Google Login Error:', error);
+  }
+};
     return (
         <div className={`flex min-h-screen bg-white`}>
 

@@ -1,6 +1,8 @@
 import { Inter } from 'next/font/google';
 import { ThemeProvider } from './providers';
 import './globals.css';
+import GoogleAuthProvider from './google-provider';
+import StoreProvider from './StoreProvider';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -8,8 +10,7 @@ const inter = Inter({
   variable: '--font-inter',
 });
 
-import GoogleAuthProvider from './google-provider';
-import StoreProvider from './StoreProvider';
+
 
 
 export default function RootLayout({
